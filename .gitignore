@@ -8,5 +8,46 @@ wheels/
 
 # Virtual environments
 .venv
+venv/
+env/
+
+# IDE-specific files
 .idea
 .vscode
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Données (souvent volumineuses)
+data/raw/
+data/processed/
+*.csv
+*.parquet
+*.h5
+*.hdf5
+
+# Modèles entraînés
+models/
+*.pkl
+*.pickle
+*.joblib
+*.pt
+*.pth
+*.onnx
+*.pb
+
+# Logs & expériences ML
+logs/
+runs/
+mlruns/
+wandb/
+outputs/
+
+# Fichiers de configuration sensibles
+.env
+*.env
+secrets.yaml
+
+# OS
+.DS_Store
+Thumbs.db
