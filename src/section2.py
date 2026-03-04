@@ -184,3 +184,5 @@ def main(path="../data/15SceneData", batch_size=8):
     plt.tight_layout()
     fig.subplots_adjust(top=0.88, hspace=0.6) 
     plt.show()
+
+    return X_train, y_train, X_test, y_test
