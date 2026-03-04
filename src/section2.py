@@ -1,6 +1,21 @@
 from imports import *
 
-PRINT_INTERVAL = 50
+PRINT_INTERVAL = 150
+
+DATASET_PATH = "../data/15SceneData"
+DATASET_URL = "https://github.com/rdfia/rdfia.github.io/raw/master/data/3-a/15ScenesData.zip"
+
+def download_dataset():
+    if not os.path.exists(DATASET_PATH):
+        print("Téléchargement du dataset 15SceneData...")
+        zip_path = "../data/15ScenesData.zip"
+        urllib.request.urlretrieve(DATASET_URL, zip_path)
+        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+            zip_ref.extractall("../data/")
+        os.remove(zip_path)
+        print("Téléchargement dataset effectué.")
+    else:
+        print("Dataset 15SceneData déjà présent.")
 
 if torch.cuda.is_available():
     DEVICE = torch.device("cuda")
@@ -72,7 +87,8 @@ def extract_features(data, model):
 
     return X, y
 
-def show_activationMaps(path="../data/15SceneData", batch_size=8): 
+def show_activationMaps(path="../data/15SceneData", batch_size=8):
+    download_dataset()
     vgg16 = models.vgg16(weights=models.VGG16_Weights.IMAGENET1K_V1).eval().to(DEVICE)
 
     train_loader, test_loader = get_dataset(batch_size, path)
