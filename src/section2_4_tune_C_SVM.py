@@ -39,9 +39,11 @@ def main(path="../data/15SceneData", batch_size=8,
     svm = LinearSVC(C=best_C, max_iter=10000)
     svm.fit(X_train, y_train)
     accuracy = svm.score(X_test, y_test)
-    print('Accuracy (test) = %f' % accuracy)
+    print(f'Accuracy (test) = {accuracy * 100:.2f}%')
 
     fig_optuna = optuna.visualization.matplotlib.plot_optimization_history(study)
     fig_optuna.set_title("Historique d'optimisation Optuna (paramètre C du SVM)")
     plt.tight_layout()
     plt.show()
+
+    return best_C

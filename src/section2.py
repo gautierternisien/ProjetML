@@ -129,7 +129,7 @@ def main(path="../data/15SceneData", batch_size=8):
     svm = LinearSVC(max_iter=10000)
     svm.fit(X_train, y_train)
     accuracy = svm.score(X_test, y_test)
-    print('Accuracy = %f' % accuracy)
+    print('Accuracy = %.2f%%' % (accuracy * 100))
 
     print("Génération de la visualisation des prédictions")
     vis_images = []

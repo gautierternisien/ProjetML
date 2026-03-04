@@ -22,3 +22,4 @@ from PIL import Image
 
 from sklearn.svm import LinearSVC
 from sklearn.preprocessing import normalize
+from sklearn.decomposition import PCA
