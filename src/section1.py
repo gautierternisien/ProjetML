@@ -31,10 +31,23 @@ def save_and_show(plt_obj, nameim, suffix):
     print(f"Graphique sauvegardé : {save_path}")
     plt_obj.show()
 
+def download_imagenet_classes():
+    pkl_path = '../data/imagenet_classes.pkl'
+    if not os.path.exists(pkl_path):
+        print("Téléchargement de imagenet_classes.pkl...")
+        import urllib.request
+        os.makedirs('../data', exist_ok=True)
+        urllib.request.urlretrieve(
+            'https://github.com/rdfia/rdfia.github.io/raw/master/data/3-a/imagenet_classes.pkl',
+            pkl_path
+        )
+        print("Téléchargement terminé.")
+
 def s1(nameim):
     img_pil, x = prepare_input(nameim)
 
-    # Chargement des classes
+    # Chargement des classes (téléchargement si absent)
+    download_imagenet_classes()
     imagenet_classes = pickle.load(open('../data/imagenet_classes.pkl', 'rb'))
 
 
