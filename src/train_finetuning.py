@@ -3,7 +3,7 @@ Script d'entraînement du fine-tuning VGG16 sur 15SceneData.
 Gradients propagés à tout le réseau avec LR différenciés par groupe de couches.
 Les poids sont sauvegardés dans ../models/vgg16_finetuned.pth.
 """
-from section2_4_FineTuning import *
+from section2_4_FineTuningVGG16 import *
 
 EPOCHS = 20
 LR     = 1e-3

@@ -16,7 +16,7 @@ def main(path="../data/15SceneData", batch_size=8, X_train=None, y_train=None, X
 
 
     n_components = 1024
-    print(f"\nApplication de PCA pour réduire à {n_components} dimensions...")
+    print(f"Application de PCA pour réduire à {n_components} dimensions...")
     pca = PCA(n_components=n_components)
     X_train_pca = pca.fit_transform(X_train)
     X_test_pca = pca.transform(X_test)
@@ -25,8 +25,8 @@ def main(path="../data/15SceneData", batch_size=8, X_train=None, y_train=None, X
     print(f"Variance expliquée : {variance_expliquee:.1f}%")
 
 
-    print("\nEntraînement du SVM avec le meilleur C trouvé par optuna après PCA...")
+    print("Entraînement du SVM avec le meilleur C trouvé par optuna après PCA...")
     svm = LinearSVC(C=best_C, max_iter=10000)
     svm.fit(X_train_pca, y_train)
     accuracy = svm.score(X_test_pca, y_test)
-    print(f'Accuracy (test) = {accuracy * 100:.2f}%')
+    print(f'Accuracy = {accuracy * 100:.2f}%')

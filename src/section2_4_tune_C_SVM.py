@@ -1,6 +1,4 @@
 from section2 import *
-import optuna
-from sklearn.model_selection import cross_val_score
 
 def main(path="../data/15SceneData", batch_size=8,
          X_train=None, y_train=None, X_test=None, y_test=None):
@@ -27,21 +25,23 @@ def main(path="../data/15SceneData", batch_size=8,
         scores = cross_val_score(svm, X_train, y_train, cv=3, scoring="accuracy", n_jobs=-1)
         return scores.mean()
 
-    print("\nOptimisation du paramètre C avec Optuna (20 trials)...")
+    print("Optimisation du paramètre C avec Optuna (20 trials)...")
     optuna.logging.set_verbosity(optuna.logging.WARNING)
     study = optuna.create_study(direction="maximize")
     study.optimize(objective, n_trials=20, show_progress_bar=True)
 
     best_C = study.best_params["C"]
-    print(f"\nMeilleur C trouvé : {best_C:.6f}  (accuracy CV : {study.best_value:.4f})")
+    print(f"Meilleur C trouvé : {best_C:.6f}  (accuracy CV : {study.best_value:.4f})")
 
-    print("\nEntraînement du SVM final avec le meilleur C...")
+    print("Entraînement du SVM final avec le meilleur C...")
     svm = LinearSVC(C=best_C, max_iter=10000)
     svm.fit(X_train, y_train)
     accuracy = svm.score(X_test, y_test)
-    print(f'Accuracy (test) = {accuracy * 100:.2f}%')
+    print(f'Accuracy = {accuracy * 100:.2f}%')
 
-    fig_optuna = optuna.visualization.matplotlib.plot_optimization_history(study)
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=optuna.exceptions.ExperimentalWarning)
+        fig_optuna = optuna.visualization.matplotlib.plot_optimization_history(study)
     fig_optuna.set_title("Historique d'optimisation Optuna (paramètre C du SVM)")
     plt.tight_layout()
     plt.show()
