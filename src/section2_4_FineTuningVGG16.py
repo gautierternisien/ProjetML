@@ -74,14 +74,11 @@ def main(path="../data/15SceneData", batch_size=32):
     model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
     model.eval()
 
-    # Infos sur le modèle
-    print("\n--- Structure de VGG16FineTuned ---")
-    print(model)
+    # Infos sur le modèle et ses params
     total_params     = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    print(f"\nParamètres totaux      : {total_params:,}")
+    print(f"Paramètres totaux      : {total_params:,}")
     print(f"Paramètres entraînés   : {trainable_params:,} ")
-    print("-----------------------------------\n")
 
     print("Chargement du jeu de test...")
     test_loader = get_dataset_finetuning(batch_size, path)
@@ -102,16 +99,10 @@ def main(path="../data/15SceneData", batch_size=32):
     all_targets = np.array(all_targets)
 
     accuracy = (all_preds == all_targets).mean() * 100
-    print(f"\nTest Accuracy : {accuracy:.2f}%")
+    print(f"Accuracy : {accuracy:.2f}%")
 
     # Rapport par classe (précision, rappel, F1)
-    print("\nRapport de classification :")
-    per_class_acc = []
-    for i, name in enumerate(class_names):
-        mask = all_targets == i
-        acc_c = (all_preds[mask] == all_targets[mask]).mean() * 100
-        per_class_acc.append(acc_c)
-        print(f"  {name:<15} : {acc_c:.1f}%")
+    print("Matrice de confusion plotée")
 
     # Matrice de confusion
     num_classes = len(class_names)
