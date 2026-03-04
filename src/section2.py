@@ -73,7 +73,7 @@ def extract_features(data, model):
     return X, y
 
 def show_activationMaps(path="../data/15SceneData", batch_size=8): 
-    vgg16 = models.vgg16(pretrained=True).eval().to(DEVICE)
+    vgg16 = models.vgg16(weights=models.VGG16_Weights.IMAGENET1K_V1).eval().to(DEVICE)
 
     train_loader, test_loader = get_dataset(batch_size, path)
     images, labels = next(iter(train_loader))
@@ -113,7 +113,7 @@ def show_activationMaps(path="../data/15SceneData", batch_size=8):
 
 def main(path="../data/15SceneData", batch_size=8):
     print("Instanciation de VGG16")
-    vgg16 = models.vgg16(pretrained=True)
+    vgg16 = models.vgg16(weights=models.VGG16_Weights.IMAGENET1K_V1)
 
     print("Instanciation de VGG16relu7")
     model = VGG16relu7(vgg16).eval().to(DEVICE)
