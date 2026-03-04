@@ -16,8 +16,10 @@ def main():
     section1.s1_4("../data/dog2" + ".CR2")
     section1.s1_4("../data/dog3" + ".jpg")
 
+    print("----- Section 2 -----")
+    section2.show_activationMaps()
+    section2.main()  # par défaut batch_size = 8
+
 
 if __name__ == "__main__":
     main()
-    section2.show_activationMaps()
-    section2.main() #par défaut batch_size = 8
