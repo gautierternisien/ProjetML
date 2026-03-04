@@ -1,8 +1,4 @@
-import argparse
 import os
-import time
-
-import PIL
 from PIL import Image
 
 import numpy as np
@@ -10,17 +6,10 @@ import torchvision
 import pickle
 
 import torch
-import torch.nn as nn
 import torch.nn.parallel
-import torch.backends.cudnn as cudnn
 import torch.utils.data
-import torchvision.datasets as datasets
 import torchvision.models as models
-import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
-from torch.autograd import Variable
-
-from sklearn.svm import LinearSVC
 
 def s1(nameim):
     # 1. Garder l'image originale pour l'affichage final
