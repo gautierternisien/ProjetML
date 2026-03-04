@@ -23,3 +23,8 @@ from PIL import Image
 from sklearn.svm import LinearSVC
 from sklearn.preprocessing import normalize
 from sklearn.decomposition import PCA
+import optuna
+import warnings
+from sklearn.model_selection import cross_val_score
+import zipfile
+import urllib.request
