@@ -1,4 +1,5 @@
 import section1
+import section2
 
 def main():
     print("----- Section 1 -----")
@@ -16,3 +17,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    section2.show_activationMaps()
+    section2.main() #par défaut batch_size = 8
