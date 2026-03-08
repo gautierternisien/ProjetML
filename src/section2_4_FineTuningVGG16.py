@@ -3,6 +3,58 @@ from section2 import *
 NUM_CLASSES = 15
 MODEL_PATH = "../models/vgg16_finetuned.pth"
 
+def download_finetuned_model(model_path='../models/vgg16_finetuned.pth'):
+    # Vérification si le fichier existe et s'il est valide (taille > 1Mo)
+    if os.path.exists(model_path):
+        if os.path.getsize(model_path) < 1024 * 1024:  # Moins de 1 Mo -> surement corrompu (HTML)
+            print(f"Fichie corrompu détecté ({os.path.getsize(model_path)} bytes), suppression...")
+            os.remove(model_path)
+    
+    if not os.path.exists(model_path):
+        os.makedirs(os.path.dirname(model_path), exist_ok=True)
+        print("Téléchargement du modèle fine-tuné depuis Google Drive...")
+        
+        # ID du fichier extrait de votre lien : 1HcDK8pRcKgn9A1j27Kgk4JORBJUQN1Fi
+        file_id = '1HcDK8pRcKgn9A1j27Kgk4JORBJUQN1Fi'
+        url = f'https://drive.google.com/uc?id={file_id}'
+        
+        try:
+            import gdown
+            gdown.download(url, model_path, quiet=False)
+        except ImportError:
+            print("Librairie gdown non trouvée, tentative avec requests...")
+            try:
+                import requests
+                
+                def get_confirm_token(response):
+                    for key, value in response.cookies.items():
+                        if key.startswith('download_warning'):
+                            return value
+                    return None
+
+                def save_response_content(response, destination):
+                    CHUNK_SIZE = 32768
+                    with open(destination, "wb") as f:
+                        for chunk in response.iter_content(CHUNK_SIZE):
+                            if chunk: 
+                                f.write(chunk)
+
+                URL = "https://docs.google.com/uc?export=download"
+                session = requests.Session()
+                response = session.get(URL, params={'id': file_id}, stream=True)
+                token = get_confirm_token(response)
+
+                if token:
+                    params = {'id': file_id, 'confirm': token}
+                    response = session.get(URL, params=params, stream=True)
+
+                save_response_content(response, model_path)
+            except ImportError:
+                print("\nERREUR CRITIQUE : Ni 'gdown' ni 'requests' ne sont disponibles.")
+                print("Veuillez installer gdown : pip install gdown")
+                return
+
+        print("Téléchargement terminé.")
 
 class VGG16FineTuned(nn.Module):
     def __init__(self, vgg16, num_classes=NUM_CLASSES):
@@ -66,8 +118,7 @@ def plot_confusion_matrix(cm, class_names):
 def main(path="../data/15SceneData", batch_size=32):
     if not os.path.exists(MODEL_PATH):
         print(f"Modèle introuvable : {MODEL_PATH}")
-        print("Lance d'abord section2_4_train_finetuning.py pour entraîner et sauvegarder le modèle.")
-        return
+        download_finetuned_model()
 
     print(f"Chargement du modèle depuis {MODEL_PATH}...")
     model = build_model()
