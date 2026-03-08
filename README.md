@@ -2,7 +2,21 @@
 
 #### TERNISIEN Gautier, MOLINATTI Clothilde, MORTEO Ilona
 
-## Comment lancer le code
+## Télécharger le projet
+
+Pour télécharger le projet, vous pouvez cloner le dépôt GitHub :
+
+```bash
+git clone https://github.com/gautierternisien/ProjetML.git
+```
+
+Puis se rendre dans le dossier du projet :
+
+```bash
+cd ProjetML
+```
+
+## Lancer le code
 Pour lancer le code il faut d'abord installer les librairies nécessaires (dans un environnement virtuel de préférence) à partir du fichier `requirements.txt`: 
 
 ```bash
