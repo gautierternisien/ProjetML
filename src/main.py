@@ -1,3 +1,5 @@
+import sys
+import matplotlib.pyplot as plt
 import section1
 import section2
 import section2_4_tune_C_SVM
@@ -6,6 +8,12 @@ import section2_4_PCA_SVM
 import section2_4_ResNet50
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] == "img":
+        print("Mode avec affichage activé.")
+    else:
+        plt.show = lambda: None
+        print("Mode sans affichage (défaut). Ajoutez 'img' en argument pour voir les graphiques.")
+
     print("\n-------- Section 1 : VGG16 Architecture --------")
     section1.s1("../data/cat"+".jpg")
     section1.s1("../data/cat2" + ".CR2")
