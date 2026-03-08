@@ -66,7 +66,7 @@ def plot_confusion_matrix(cm, class_names):
 def main(path="../data/15SceneData", batch_size=32):
     if not os.path.exists(MODEL_PATH):
         print(f"Modèle introuvable : {MODEL_PATH}")
-        print("Lance d'abord train_finetuning.py pour entraîner et sauvegarder le modèle.")
+        print("Lance d'abord section2_4_train_finetuning.py pour entraîner et sauvegarder le modèle.")
         return
 
     print(f"Chargement du modèle depuis {MODEL_PATH}...")
