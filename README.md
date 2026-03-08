@@ -26,7 +26,7 @@ pip install -r requirements.txt
 Ensuite, il suffit de lancer le fichier `main.py` pour exécuter le projet. 
 
 ```bash
-python main.py
+python src/main.py
 ``` 
 
 ### Le main.py appelle chaque section du projet, et télécharge tout ce qui est nécessaire (dataset, modèles), donc il peut être plus long à exécuter la première fois.
